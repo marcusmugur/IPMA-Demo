@@ -1,0 +1,180 @@
+update project:
+composer install
+php artisan migrate --seed
+php artisan key:generate
+
+
+
+install laravel:
+composer create-project laravel/laravel ipma
+
+composer global require laravel/installer - install laravel global
+laravel new your_project   - create fresh laravel project
+
+
+
+cp .env.example .env - schimba in .env database name
+composer install - instaleaza fisierele necesare
+php artisan migrate --seed   - seed is important, because it will create the first admin user for you
+php artisan key:generate
+php artisan storage:link
+
+
+And that's it, go to your domain and login:
+
+Username:	admin@admin.com
+Password:	password
+
+
+
+php artisan migrate:fresh --seed   - sterge baza de date (SQL)
+php artisan migrate - get your database tables set up
+
+
+npm install - install node
+npm run dev - run compile
+npm run watch - constantly watch the files
+
+
+c:xampp/apache/conf/extra - httpd-vhost.conf
+<VirtualHost *:80>
+	DocumentRoot "C:/xampp/htdocs"
+	ServerName localhost
+<VirtualHost>
+
+<VirtualHost *:80>
+	DocumentRoot "C:/xampp/htdocs/ipma/public"
+	ServerName ipma.com
+<VirtualHost>
+
+C:/Windows/System32/drivers/etc - hosts
+127.0.0.1 localhost
+127.0.0.1 ipma.com
+
+
+INSTALL INSTRUCTIONS FOR XAMPP ON WINDOWS
+1. Make sure you have domain name setup for localhost (example: test.com)
+2. Extract the archive and put it in the folder you want
+3. Run cp .env.example .env file to copy example file to .env
+Then edit your .env file with DB credentials and other settings.
+4. Run composer install command
+5. Delete the old file from migrations "create_user_table"
+6. Run composer require laravel/passport command.
+7. Run php artisan migrate --seed command.
+Notice: seed is important, because it will create the first admin user for you.
+8. Run php artisan key:generate command.
+9. Run php artisan storage:link command.
+And that's it, go to your domain and login:
+Username:	admin@admin.com
+Password:	password
+For more information, potential errors and related links, you can read more detailed installation guide here
+
+
+LARAVEL TRAVESI
+1,2 - install tools and laravel
+
+3. Start building app
+create folder "pages" on views folder
+create index.blade.php
+create about.blade.php
+
+
+on routes folder inside web.php add:
+Route::get('/', 'PagesController@index');
+Route::get('/about', 'PagesController@about')
+
+or we can use this:
+Route::get('/about', function(){
+	return view('pages.about');
+});
+
+
+
+create controller: on the terminal
+php artisan make:controller PagesController
+
+on the PagesController.php add:
+public function index(){
+	return view('pages.index');	
+}
+public function about(){
+	return view('pages.about');	
+}
+
+
+on the index.blade.php page change this:
+<title>{{'app.name', 'NAME'}}</title>    - use the name on the title
+add content
+
+
+on the view folder create layout folder and a file app.blade.php
+copy and paste the head tag and on the body tag replace the content like:
+<body>
+	@yield('content')
+</body>
+
+
+on the index.blade.php we need to replace all with:
+@extends('layouts.app')
+
+
+@section('content')
+<h1>Welcome</h1>
+@endsection
+do all the pages the same content
+
+
+npm run dev - recompile the application
+
+
+4. Start customize pages and navbar
+
+on the PagesController.php add:
+public function index(){
+	$title = 'Welcome';
+	return view('pages.index');	
+	return view('pages.index')->with('title', $title);
+}
+public function about(){
+	$title = 'About';
+	return view('pages.about')->with('title', $title);	
+} 
+public function services(){
+	$data = array(
+		'title' => 'Services'
+		'services' => ['Web design', 'Programming', 'SEO']
+	);
+	return view('pages.services')->with($data);	
+} 
+
+on the services page change this:
+@extends('layouts.app')
+
+@section('content')
+	<h1>{{$title}}</h1>
+	@if(count($services) > 0)
+		<ul>
+			@foreach($services as @service)
+				<li>{{$service}}</li>
+			@endforeach
+		</ul>
+	@endif
+@endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
